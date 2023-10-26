@@ -1,7 +1,11 @@
-isSingle :: [a] -> Bool
-isSingle [x] = True
-isSingle _ = False
+class Eqs a where
+   (==) :: a -> a -> Bool
+   
+instance Eqs Int where
+    0 == 0 = True
+    1 == 1 = True
 
-head2 :: [a] -> a
-head2 (x:xs) = x 
-head2 [] = error "cannot do that"
+data Fruit = Apple | Orange 
+
+instance Eqs Fruit where
+    Apple == Orange = True

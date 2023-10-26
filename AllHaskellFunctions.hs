@@ -96,3 +96,34 @@ curry f x y = f (x, y)
 
 uncurry :: (a -> b -> c) -> ((a, b) -> c)
 uncurry g (x, y) = g x y
+
+concat2 :: [[a]] -> [a]
+concat2 [] = []
+concat2 (xs:xss) = xs ++ concat2 xss
+
+concatMap :: (a -> [b]) -> [a] -> [b]
+concatMap f = concat . map f
+
+mapMaybe :: (a -> Maybe b) -> [a] -> [b]
+mapMaybe f [] = []
+mapMaybe f (x:xs) = include (f x) (mapMaybe f xs)
+   where include :: Maybe b -> [b] -> [b]
+         include Nothing ys = ys
+         include (Just y) ys = y : ys
+
+turnIntoBool :: Int -> Bool
+turnIntoBool 0 = False
+turnIntoBool 1 = True
+
+all2 :: (a -> Bool) -> [a] -> Bool
+all2 p [] = True
+all2 p (x:xs) = p x && all2 p xs
+
+any2 :: (a -> Bool) -> [a] -> Bool
+any2 p [] = False
+any2 p (x:xs) = p x || any2 p xs
+
+and2 :: [Bool] -> Bool
+and2 [] = True
+and2 (x:xs) = x && and2 xs
+
